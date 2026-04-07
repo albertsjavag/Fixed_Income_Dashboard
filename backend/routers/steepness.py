@@ -75,7 +75,9 @@ async def steepness():
         ]
 
         result = {"entries": entries, "updatedAt": datetime.utcnow().isoformat() + "Z"}
-        set_cache(CACHE_KEY, result)
+        # Don't cache if US FRED data is missing — transient failure should retry next request
+        if us10_raw and us2_raw:
+            set_cache(CACHE_KEY, result)
         return result
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})

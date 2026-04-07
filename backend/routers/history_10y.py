@@ -58,7 +58,8 @@ async def history_10y():
             ),
             "updatedAt": datetime.utcnow().isoformat() + "Z",
         }
-        set_cache(CACHE_KEY, result)
+        if us_raw:
+            set_cache(CACHE_KEY, result)
         return result
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})

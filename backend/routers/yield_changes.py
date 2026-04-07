@@ -107,7 +107,11 @@ async def yield_changes():
         rows.append(_build_row("DE_10Y", "DE 10Y", de_raw, is_monthly=True))
 
         result = {"rows": rows, "updatedAt": datetime.utcnow().isoformat() + "Z"}
-        set_cache(CACHE_KEY, result)
+        us_has_data = not isinstance(us_results, Exception) and any(
+            not isinstance(r, Exception) and r for r in us_results
+        )
+        if us_has_data:
+            set_cache(CACHE_KEY, result)
         return result
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
