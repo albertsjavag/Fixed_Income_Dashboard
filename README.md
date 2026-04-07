@@ -63,47 +63,29 @@ An interactive tool for custom pair analysis. Select any two of the 13 available
 
 ## The mathematics
 
-### 1. Implied forward rates
-
-A spot yield $r(t)$ is the yield today on a zero-coupon bond maturing in $t$ years. The implied forward rate $f(t_1, t_2)$ is the rate the market is pricing for a loan that starts at $t_1$ and matures at $t_2$. It follows from a no-arbitrage argument applied to two spot rates:
+**Implied forward rate** — derived from two spot yields via a no-arbitrage condition:
 
 $$f(t_1, t_2) = \frac{r(t_2) \cdot t_2 - r(t_1) \cdot t_1}{t_2 - t_1}, \qquad t_2 > t_1 \geq 0$$
 
-I compute five forward rates for both the US and Norway: 3M→6M, 6M→1Y, 1Y→2Y, 2Y→5Y, and 5Y→10Y. The last one (the "5Y5Y") is widely watched by central banks as a measure of long-run rate expectations.
+**Yield spread** — the difference between two bond yields, expressed in percentage points or basis points (1 bps = 0.01%):
 
-### 2. Yield spreads
+$$\text{Spread}_{A,B} = r_A - r_B \qquad \Delta r_{\text{bps}} = (r_A - r_B) \times 100$$
 
-A yield spread is the difference between two bond yields:
+**Yield change** — how much a yield has moved over a given horizon, in basis points:
 
-$$\text{Spread}_{A,B} = r_A - r_B$$
+$$\Delta r = \bigl[r(t_1) - r(t_0)\bigr] \times 100$$
 
-In the heatmap and matrix I express this in basis points, where one basis point equals 0.01%:
-
-$$\Delta r_{\text{bps}} = (r_A - r_B) \times 100$$
-
-The curve steepness is the 10Y minus 2Y spread. When negative, the curve is inverted — short-term rates exceed long-term ones. This has preceded every US recession since 1955.
-
-### 3. Z-score
-
-The z-score measures how far the current yield is from its one-year historical average in units of standard deviation. Let $\mu$ and $\sigma$ be the mean and standard deviation of daily yields over the past year:
+**Z-score** — how many standard deviations the current yield is from its one-year mean:
 
 $$z = \frac{r_{\text{current}} - \mu}{\sigma}$$
 
-A z-score beyond ±2 is flagged as historically extreme. Norway and the US use daily data (~252 observations); Germany uses monthly data (~12 observations), which I flag as indicative only.
+**Pearson correlation** — computed over a rolling window of $w$ days to measure how synchronised two yield series are:
 
-### 4. Rolling Pearson correlation
+$$\rho_{AB}(t,w) = \frac{\sum_{i=t-w+1}^{t}(r_A^i - \bar{r}_A)(r_B^i - \bar{r}_B)}{\sqrt{\sum_{i=t-w+1}^{t}(r_A^i - \bar{r}_A)^2 \cdot \sum_{i=t-w+1}^{t}(r_B^i - \bar{r}_B)^2}}$$
 
-To measure how synchronised two yield markets are, I compute the Pearson correlation coefficient over a rolling window of $w$ days. A value near +1 means the two markets are moving in lockstep (global macro dominates). A sustained drop below 0.3 suggests a regime shift where domestic factors are overriding the global trend.
-
-I track the 30-day and 90-day rolling correlation between Norwegian 10Y and US 10Y yields.
-
-### 5. Breakeven inflation
-
-Breakeven inflation is the market's implied forecast for average CPI inflation over the next 10 years. It is derived from the spread between a nominal Treasury and a TIPS bond of the same maturity:
+**Breakeven inflation** — the market's implied 10-year inflation forecast, derived from nominal and real yields:
 
 $$\pi^* = r_{\text{nominal}}(10\text{Y}) - r_{\text{real}}(10\text{Y})$$
-
-If realised inflation exceeds $\pi^*$, the TIPS investor outperforms; if it falls short, the nominal investor does. I draw a reference line at 2%, the Federal Reserve's inflation target.
 
 ---
 
