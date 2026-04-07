@@ -46,7 +46,7 @@ export default function SpreadMatrix() {
 
   return (
     <SectionCard
-      label="F10"
+      label="F9"
       title="YIELD & SPREAD MATRIX"
       description="Current yields for all bonds and cross-country spreads per maturity. Positive spread = first country yields higher. All spreads in basis points (bps)."
       rightLabel="CURRENT"

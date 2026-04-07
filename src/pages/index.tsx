@@ -51,8 +51,8 @@ const SECTIONS = [
   { key: "F6", label: "CORR" },
   { key: "F7", label: "BRKV" },
   { key: "F8", label: "HEAT" },
-  { key: "F9", label: "CALC" },
-  { key: "F10", label: "MTRX" },
+  { key: "F9", label: "MTRX" },
+  { key: "F10", label: "CALC" },
 ];
 
 export default function Dashboard() {
@@ -143,8 +143,8 @@ export default function Dashboard() {
           <CorrelationSection />
           <BreakevenSection />
           <YieldHeatmap />
-          <SpreadMatrix />
           <SpreadCalculator />
+          <SpreadMatrix />
         </main>
 
         {/* ── Footer status bar ── */}
