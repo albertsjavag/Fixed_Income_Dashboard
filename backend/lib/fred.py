@@ -51,12 +51,16 @@ async def fred_series(
 
 async def fred_latest(series_id: str) -> Optional[dict]:
     """Return the most recent observation for a FRED series."""
+    # Fetch 5 instead of 1 — FRED pre-publishes "." placeholders for the current
+    # business day before the H.15 release (~3:30 PM ET). With limit=1 we'd get
+    # only that placeholder and return None. Fetching 5 lets us fall back to the
+    # previous trading day when the most recent observation is still missing.
     params = {
         "series_id": series_id,
         "api_key": _api_key(),
         "file_type": "json",
         "sort_order": "desc",
-        "limit": "1",
+        "limit": "5",
     }
 
     async with httpx.AsyncClient(timeout=30) as client:

@@ -57,7 +57,10 @@ async def spreads():
         ]
 
         result = {"data": data, "updatedAt": datetime.utcnow().isoformat() + "Z"}
-        set_cache(CACHE_KEY, result)
+        # Only cache if we got actual US data — an empty US result (e.g. transient
+        # FRED error on cold start) would otherwise be served stale for a full hour.
+        if us10_raw or us2_raw:
+            set_cache(CACHE_KEY, result)
         return result
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
