@@ -143,8 +143,8 @@ export default function Dashboard() {
           <CorrelationSection />
           <BreakevenSection />
           <YieldHeatmap />
-          <SpreadCalculator />
           <SpreadMatrix />
+          <SpreadCalculator />
         </main>
 
         {/* ── Footer status bar ── */}

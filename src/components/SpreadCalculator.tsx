@@ -34,7 +34,7 @@ export default function SpreadCalculator() {
 
   return (
     <SectionCard
-      label="F9"
+      label="F10"
       title="INTERACTIVE SPREAD CALCULATOR"
       description="Select any two yield series to chart them together and compute the running spread (A − B). Useful for cross-country, cross-maturity, and curve analysis."
       rightLabel="CUSTOM"
