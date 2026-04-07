@@ -29,10 +29,10 @@ export async function fredSeries(
   );
 }
 
-// Return the n most recent observations
+// Return the most recent valid observation, fetching up to `limit` to skip missing (".")  values
 export async function fredLatest(
   seriesId: string,
-  limit = 1
+  limit = 5
 ): Promise<{ date: string; value: number } | null> {
   const key = process.env.FRED_API_KEY;
   if (!key) throw new Error("FRED_API_KEY is not set");
